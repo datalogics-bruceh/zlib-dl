@@ -135,26 +135,26 @@ do
     PREFIXDIR=$(cd ./$STAGE/$OS && pwd)
     if test "X$BUILD_IN_TREE" == "Xtrue"; then
         ( cd ./zlib/ && \
-            AR=${AR32} CC=${COMP-${COMP32}} CFLAGS="$CFLAGS32 $OPTFLAG $CFLAGSALL" ./configure --prefix=${PREFIXDIR} --static && \
+            AR=${AR32} CC=${COMP-${COMP32}} CFLAGS="$CFLAGS32 ${OPTFLAG-${RELFLAGS32} $CFLAGSALL" ./configure --prefix=${PREFIXDIR} --static && \
             $MAKE && $MAKE install && $MAKE distclean)
     else
         BUILDDIR="build/${STAGE}/$OS"
         mkdir -p $BUILDDIR
         ( cd ${BUILDDIR} && \
-            CC=${COMP-${COMP32}} CFLAGS="$CFLAGS32 $OPTFLAG $CFLAGSALL" ../../../zlib/configure --prefix=${PREFIXDIR} --static && \
+            CC=${COMP-${COMP32}} CFLAGS="$CFLAGS32 ${OPTFLAG-${RELFLAGS32}} $CFLAGSALL" ../../../zlib/configure --prefix=${PREFIXDIR} --static && \
             $MAKE && $MAKE install && $MAKE distclean )
     fi
     mkdir -p ./$STAGE/$OS64
     PREFIXDIR=$(cd ./$STAGE/$OS64 && pwd)
     if test "X$BUILD_IN_TREE" == "Xtrue"; then
         ( cd ./zlib/ && \
-            AR=${AR64} CC=${COMP-${COMP64}} CFLAGS="$CFLAGS64 $OPTFLAG $CFLAGSALL" ./configure --prefix=${PREFIXDIR} --64 --static && \
+            AR=${AR64} CC=${COMP-${COMP64}} CFLAGS="$CFLAGS64 ${OPTFLAG-${RELFLAGS64}} $CFLAGSALL" ./configure --prefix=${PREFIXDIR} --64 --static && \
 	    $MAKE && $MAKE install && $MAKE distclean)
     else
         BUILDDIR="build/${STAGE}/$OS64"
         mkdir -p $BUILDDIR
         ( cd ${BUILDDIR} && 
-            CC=${COMP-${COMP64}} CFLAGS="$CFLAGS64 $OPTFLAG $CFLAGSALL" ../../../zlib/configure --prefix=${PREFIXDIR} --64 --static && \
+            CC=${COMP-${COMP64}} CFLAGS="$CFLAGS64 ${OPTFLAG-${RELFLAGS64}} $CFLAGSALL" ../../../zlib/configure --prefix=${PREFIXDIR} --64 --static && \
 	    $MAKE && $MAKE install && $MAKE distclean )
    fi
 done
